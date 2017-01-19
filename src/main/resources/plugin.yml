@@ -1,0 +1,12 @@
+main: com.perceivedev.spawnergui.SpawnerGUI
+name: SpawnerGUI
+version: 1.0.0
+description: A Bukkit plugin for purchasing randomized spawners
+authors: [Perceive team]
+#depend: [PerceiveCore]
+#commands:
+#  spawnergui:
+#    description: SpawnerGUI main command
+#    aliases: [alias1,alias2]
+#    usage: "/spawnergui [command]"
+#    permission: SpawnerGUI.main
