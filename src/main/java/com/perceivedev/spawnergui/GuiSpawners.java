@@ -36,18 +36,18 @@ public class GuiSpawners extends Gui {
 
     private void init(Player player) {
         FixedPositionPane pane = getRootAsFixedPosition();
+        
+        double money = eco.getBalance(player);
+        SGConfig config = SpawnerGUI.getInstance().getSGConfig();
+        
         // Nasty piece of code to add a background.
         // Not worth intermediate variables.
         pane.addComponent(SimplerLabel.builder().setColor(DisplayColor.DARK_GRAY).setSize(1, 9).build(), 0, 0);
-
-        double money = eco.getBalance(player);
-        SGConfig config = SpawnerGUI.getInstance().getSGConfig();
 
         pane.addComponent(makeButton(config.getNormal(), money, player), 1, 0);
         pane.addComponent(makeButton(config.getElite(), money, player), 3, 0);
         pane.addComponent(makeButton(config.getEpic(), money, player), 5, 0);
         pane.addComponent(makeButton(config.getLegendary(), money, player), 7, 0);
-
     }
 
     public SimplerButton makeButton(TierData data, double balance, Player player) {
