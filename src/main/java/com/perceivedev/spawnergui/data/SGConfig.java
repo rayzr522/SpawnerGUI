@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.perceivedev.spawnergui;
+package com.perceivedev.spawnergui.data;
 
 import com.perceivedev.perceivecore.config.ConfigSerializable;
+import com.perceivedev.perceivecore.utilities.item.DisplayColor;
 
 /**
  * @author Rayzr
@@ -11,10 +12,10 @@ import com.perceivedev.perceivecore.config.ConfigSerializable;
  */
 public class SGConfig implements ConfigSerializable {
 
-    private TierData normal = new TierData();
-    private TierData elite = new TierData();
-    private TierData epic = new TierData();
-    private TierData legendary = new TierData();
+    private TierData normal = new TierData("Normal Spawner", DisplayColor.WHITE);
+    private TierData elite = new TierData("Ultra Spawner", DisplayColor.YELLOW);
+    private TierData epic = new TierData("Epic Spawner", DisplayColor.ORANGE);
+    private TierData legendary = new TierData("Legendary Spawner", DisplayColor.RED);
 
     /**
      * @return the normal

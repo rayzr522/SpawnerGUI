@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.perceivedev.spawnergui;
+package com.perceivedev.spawnergui.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,16 @@ public class TierData implements ConfigSerializable {
     private long cost = 5000L;
     private DisplayColor color;
     private List<String> entities = new ArrayList<>();
+
+    @SuppressWarnings("unused")
+    private TierData() {
+        // Used by ConfigSerializable
+    }
+
+    public TierData(String displayName, DisplayColor color) {
+        this.displayName = displayName;
+        this.color = color;
+    }
 
     /**
      * @return the displayName

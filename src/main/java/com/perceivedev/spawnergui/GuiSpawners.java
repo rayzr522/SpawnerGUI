@@ -5,16 +5,15 @@ package com.perceivedev.spawnergui;
 
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import com.perceivedev.perceivecore.gui.Gui;
 import com.perceivedev.perceivecore.gui.base.FixedPositionPane;
-import com.perceivedev.perceivecore.gui.components.Button;
-import com.perceivedev.perceivecore.gui.components.Label;
-import com.perceivedev.perceivecore.gui.util.Dimension;
+import com.perceivedev.perceivecore.gui.components.simple.SimplerButton;
+import com.perceivedev.perceivecore.gui.components.simple.SimplerLabel;
 import com.perceivedev.perceivecore.utilities.item.DisplayColor;
-import com.perceivedev.perceivecore.utilities.item.ItemFactory;
+import com.perceivedev.spawnergui.data.SGConfig;
+import com.perceivedev.spawnergui.data.TierData;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -39,27 +38,24 @@ public class GuiSpawners extends Gui {
         FixedPositionPane pane = getRootAsFixedPosition();
         // Nasty piece of code to add a background.
         // Not worth intermediate variables.
-        pane.addComponent(new Label(DisplayColor.DARK_GRAY.getItemFactory(Material.STAINED_GLASS_PANE).setName(" ").build(), new Dimension(1, 9)), 0, 0);
+        pane.addComponent(SimplerLabel.builder().setColor(DisplayColor.DARK_GRAY).setSize(1, 9).build(), 0, 0);
 
         double money = eco.getBalance(player);
         SGConfig config = SpawnerGUI.getInstance().getSGConfig();
 
-        pane.addComponent(makeButton(config.getNormal(), money, player), 0, 0);
-        pane.addComponent(makeButton(config.getElite(), money, player), 0, 0);
-        pane.addComponent(makeButton(config.getEpic(), money, player), 0, 0);
-        pane.addComponent(makeButton(config.getLegendary(), money, player), 0, 0);
+        pane.addComponent(makeButton(config.getNormal(), money, player), 1, 0);
+        pane.addComponent(makeButton(config.getElite(), money, player), 3, 0);
+        pane.addComponent(makeButton(config.getEpic(), money, player), 5, 0);
+        pane.addComponent(makeButton(config.getLegendary(), money, player), 7, 0);
 
     }
 
-    public Button makeButton(TierData data, double balance, Player player) {
-        return new Button(
-                ItemFactory.builder(Material.STAINED_GLASS_PANE).setColor(balance >= data.getCost() ? data.getColor() : DisplayColor.BLACK).setName(data.getDisplayName()).build(),
-                e -> {
-                    if (balance >= data.getCost()) {
-                        giveSpawner(player, data.getEntities());
-                    }
-                },
-                Dimension.ONE);
+    public SimplerButton makeButton(TierData data, double balance, Player player) {
+        return SimplerButton.builder().setColor(balance >= data.getCost() ? data.getColor() : DisplayColor.BLACK).setText(data.getDisplayName()).setAction(e -> {
+            if (balance >= data.getCost()) {
+                giveSpawner(player, data.getEntities());
+            }
+        }).build();
     }
 
     private void giveSpawner(Player player, List<String> options) {

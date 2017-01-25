@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.perceivedev.perceivecore.config.SerializationManager;
 import com.perceivedev.perceivecore.modulesystem.ModuleManager;
+import com.perceivedev.spawnergui.data.SGConfig;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -37,8 +38,6 @@ public class SpawnerGUI extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-
-        System.out.println(config.toString());
 
         getCommand("spawners").setExecutor(new CommandSpawners(this));
 

@@ -16,6 +16,7 @@ import com.perceivedev.perceivecore.utilities.text.TextUtils;
  */
 public class CommandSpawners implements CommandExecutor {
 
+    @SuppressWarnings("unused")
     private SpawnerGUI plugin;
 
     /**
@@ -39,12 +40,15 @@ public class CommandSpawners implements CommandExecutor {
             return true;
         }
 
+        Player player = (Player) sender;
+        msg(player, "Opening &aSpawner&bGUI");
         new GuiSpawners((Player) sender).open((Player) sender);
         return true;
     }
 
     private void msg(CommandSender sender, String text) {
-        sender.sendMessage(TextUtils.colorize(String.format("&8\u200b&b %s", text)));
+        sender.sendMessage("GAAAH");
+        sender.sendMessage(TextUtils.colorize(String.format("&8\u00bb&b %s", text)));
     }
 
 }
