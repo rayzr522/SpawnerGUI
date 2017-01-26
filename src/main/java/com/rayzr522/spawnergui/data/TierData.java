@@ -1,24 +1,23 @@
 /**
  * 
  */
-package com.perceivedev.spawnergui.data;
+package com.rayzr522.spawnergui.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.perceivedev.perceivecore.config.ConfigSerializable;
-import com.perceivedev.perceivecore.utilities.item.DisplayColor;
+import org.bukkit.DyeColor;
 
 /**
  * Represents the data for one tier of spawner
  * 
  * @author Rayzr
  */
-public class TierData implements ConfigSerializable {
+public class TierData {
 
     private String displayName;
     private long cost = 5000L;
-    private DisplayColor color;
+    private DyeColor color;
     private List<String> entities = new ArrayList<>();
 
     @SuppressWarnings("unused")
@@ -26,7 +25,7 @@ public class TierData implements ConfigSerializable {
         // Used by ConfigSerializable
     }
 
-    public TierData(String displayName, DisplayColor color) {
+    public TierData(String displayName, DyeColor color) {
         this.displayName = displayName;
         this.color = color;
     }
@@ -62,14 +61,14 @@ public class TierData implements ConfigSerializable {
     /**
      * @return the color
      */
-    public DisplayColor getColor() {
+    public DyeColor getColor() {
         return color;
     }
 
     /**
      * @param color the color to set
      */
-    public void setColor(DisplayColor color) {
+    public void setColor(DyeColor color) {
         this.color = color;
     }
 

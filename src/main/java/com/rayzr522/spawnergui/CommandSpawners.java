@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.perceivedev.spawnergui;
+package com.rayzr522.spawnergui;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.perceivedev.perceivecore.utilities.text.TextUtils;
+import com.rayzr522.creativelynamedlib.utils.text.TextUtils;
 
 /**
  * @author Rayzr
@@ -42,7 +42,7 @@ public class CommandSpawners implements CommandExecutor {
 
         Player player = (Player) sender;
         msg(player, "Opening &aSpawner&bGUI");
-        new GuiSpawners((Player) sender).open((Player) sender);
+        GuiSpawners.create(player).open(player);
         return true;
     }
 
