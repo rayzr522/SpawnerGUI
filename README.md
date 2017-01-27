@@ -1,3 +1,5 @@
+![SpawnerGUI logo](https://github.com/Rayzr522/SpawnerGUI/raw/master/img/logo.png)
+
 # SpawnerGUI
 A Bukkit plugin for purchasing randomized spawners.
 
