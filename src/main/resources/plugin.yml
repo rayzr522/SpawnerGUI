@@ -3,10 +3,10 @@ name: SpawnerGUI
 version: 1.0.0
 description: A Bukkit plugin for purchasing randomized spawners
 author: Rayzr
-depend: [CreativelyNamedLib,Vault]
+depend: [CreativelyNamedLib,SilkSpawners,Vault]
 commands:
   spawners:
     description: SpawnerGUI main command
     aliases: [spawnergui]
-    usage: "\u00a7c Something has gone horribly wrong!"
-    permission: SpawnerGUI.main
+    usage: /spawners [reload]
+    permission: SpawnerGUI.open

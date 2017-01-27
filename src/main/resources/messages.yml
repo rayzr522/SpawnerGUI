@@ -1,0 +1,9 @@
+prefix: "&8\u00bb&6 "
+only-players: "&cOnly players can use this command!"
+no-permission: "&cYou don't have the required permission '{0}'"
+config:
+  reloaded: "The config has been reloaded!"
+  failed: "&cThe config has failed to load! Please check the console for more information. The plugin will now be disabled."
+gui:
+  not-configured: "&cNo mob types are configured for this tier!"
+  opening: "Opening &cGUI"

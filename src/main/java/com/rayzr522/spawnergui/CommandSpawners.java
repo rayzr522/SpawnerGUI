@@ -3,12 +3,11 @@
  */
 package com.rayzr522.spawnergui;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.rayzr522.creativelynamedlib.utils.text.TextUtils;
 
 /**
  * @author Rayzr
@@ -16,39 +15,40 @@ import com.rayzr522.creativelynamedlib.utils.text.TextUtils;
  */
 public class CommandSpawners implements CommandExecutor {
 
-    @SuppressWarnings("unused")
     private SpawnerGUI plugin;
 
     /**
-     * @param plugin The SpawnerGUI instance
+     * @param plugin The {@link SpawnerGUI} instance
      */
     public CommandSpawners(SpawnerGUI plugin) {
         this.plugin = plugin;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.bukkit.command.CommandExecutor#onCommand(org.bukkit.command.
-     * CommandSender, org.bukkit.command.Command, java.lang.String,
-     * java.lang.String[])
-     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            msg(sender, "&cOnly players can use this command!");
+            sender.sendMessage(plugin.tr("only-players"));
             return true;
         }
 
         Player player = (Player) sender;
-        msg(player, "Opening &aSpawner&bGUI");
+        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
+            if (!player.hasPermission("SpawnerGUI.admin")) {
+                player.sendMessage(plugin.tr("no-permission", "SpawnerGUI.admin"));
+                return true;
+            }
+            if (!plugin.loadConfig()) {
+                player.sendMessage(plugin.tr("config.failed"));
+                Bukkit.getPluginManager().disablePlugin(plugin);
+                return true;
+            }
+            player.sendMessage(plugin.tr("config.reloaded"));
+            return true;
+        }
+
+        player.sendMessage(plugin.tr("gui.opening"));
         GuiSpawners.create(player).open(player);
         return true;
-    }
-
-    private void msg(CommandSender sender, String text) {
-        sender.sendMessage("GAAAH");
-        sender.sendMessage(TextUtils.colorize(String.format("&8\u00bb&b %s", text)));
     }
 
 }

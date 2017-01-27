@@ -1,11 +1,15 @@
 package com.rayzr522.spawnergui;
 
+import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.rayzr522.spawnergui.data.Messages;
 import com.rayzr522.spawnergui.data.SGConfig;
 
 import net.milkbowl.vault.economy.Economy;
@@ -17,6 +21,7 @@ public class SpawnerGUI extends JavaPlugin {
     private Logger log;
     private Economy eco;
     private SGConfig config;
+    private Messages messages = new Messages();
 
     @Override
     public void onEnable() {
@@ -43,18 +48,32 @@ public class SpawnerGUI extends JavaPlugin {
      * @return
      */
     public boolean loadConfig() {
-        // try {
-        // if (!getConfig().isConfigurationSection("spawners")) {
-        // getConfig().createSection("spawners", SerializationManager.serialize(new SGConfig()));
-        // saveConfig();
-        // }
-        // config = SerializationManager.deserialize(SGConfig.class, getConfig().getConfigurationSection("spawners"));
-        // } catch (Exception e) {
-        // log.log(Level.SEVERE, "Error while loading config!", e);
-        // return false;
-        // }
+        try {
+            reloadConfig();
+            if (!getConfig().isConfigurationSection("spawners")) {
+                getConfig().createSection("spawners", new SGConfig().serialize());
+                saveConfig();
+            }
+            config = SGConfig.load(getConfig().getConfigurationSection("spawners"));
+
+            messages.load(getConfig("messages.yml"));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error while loading config!", e);
+            return false;
+        }
 
         return true;
+    }
+
+    public YamlConfiguration getConfig(String path) {
+        if (!getFile(path).exists() && getResource(path) != null) {
+            saveResource(path, false);
+        }
+        return YamlConfiguration.loadConfiguration(getFile(path));
+    }
+
+    public File getFile(String path) {
+        return new File(getDataFolder(), path.replace('/', File.pathSeparatorChar));
     }
 
     /**
@@ -98,6 +117,10 @@ public class SpawnerGUI extends JavaPlugin {
      */
     public SGConfig getSGConfig() {
         return config;
+    }
+
+    public String tr(String key, Object... objects) {
+        return messages.tr(key, objects);
     }
 
 }
