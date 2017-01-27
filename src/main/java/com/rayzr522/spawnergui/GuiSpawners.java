@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import com.rayzr522.creativelynamedlib.gui.Component;
 import com.rayzr522.creativelynamedlib.gui.GUI;
 import com.rayzr522.creativelynamedlib.utils.RandomItem;
+import com.rayzr522.creativelynamedlib.utils.text.TextUtils;
 import com.rayzr522.creativelynamedlib.utils.types.Point;
 import com.rayzr522.spawnergui.data.SGConfig;
 import com.rayzr522.spawnergui.data.TierData;
@@ -52,10 +53,14 @@ public class GuiSpawners {
             return;
         }
 
-        SpawnerGUI.getInstance().getEconomy().withdrawPlayer(player, data.getCost());
+        SpawnerGUI plugin = SpawnerGUI.getInstance();
+        plugin.getEconomy().withdrawPlayer(player, data.getCost());
 
-        String command = String.format("silkspawners:ss give %s %s", player.getName(), RandomItem.fromList(data.getEntities()));
+        String type = RandomItem.fromList(data.getEntities());
+        String command = String.format("silkspawners:ss give %s %s", player.getName(), type);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+
+        player.sendMessage(plugin.tr("gui.purchased", type, TextUtils.format(data.getCost())));
 
     }
 

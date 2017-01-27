@@ -1,6 +1,6 @@
 main: com.rayzr522.spawnergui.SpawnerGUI
 name: SpawnerGUI
-version: 1.0.0
+version: 1.0.1
 description: A Bukkit plugin for purchasing randomized spawners
 author: Rayzr
 depend: [CreativelyNamedLib,SilkSpawners,Vault]
