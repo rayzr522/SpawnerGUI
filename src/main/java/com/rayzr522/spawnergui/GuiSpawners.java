@@ -6,6 +6,7 @@ package com.rayzr522.spawnergui;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.rayzr522.creativelynamedlib.gui.Component;
 import com.rayzr522.creativelynamedlib.gui.GUI;
@@ -52,13 +53,19 @@ public class GuiSpawners {
             player.sendMessage(SpawnerGUI.getInstance().tr("gui.not-configured"));
             return;
         }
-
-        SpawnerGUI plugin = SpawnerGUI.getInstance();
-        plugin.getEconomy().withdrawPlayer(player, data.getCost());
+        
+        ItemStack[] items = player.getInventory().getContents();
 
         String type = RandomItem.fromList(data.getEntities());
         String command = String.format("silkspawners:ss give %s %s", player.getName(), type);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        
+        if (player.getInventory().getContents().equals(items)) {
+            return;
+        }
+
+        SpawnerGUI plugin = SpawnerGUI.getInstance();
+        plugin.getEconomy().withdrawPlayer(player, data.getCost());
 
         player.sendMessage(plugin.tr("gui.purchased", type, TextUtils.format(data.getCost())));
 
