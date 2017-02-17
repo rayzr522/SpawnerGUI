@@ -56,7 +56,7 @@ public class GuiSpawners {
         
         ItemStack[] items = player.getInventory().getContents();
 
-        String type = RandomItem.fromList(data.getEntities());
+        String type = RandomItem.from(data.getEntities());
         String command = String.format("silkspawners:ss give %s %s", player.getName(), type);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
         
